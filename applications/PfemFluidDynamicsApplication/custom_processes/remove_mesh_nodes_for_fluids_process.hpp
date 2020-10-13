@@ -267,17 +267,20 @@ namespace Kratos
 							}
 							else
 							{
-								(rModelPart.Nodes()).push_back(*(i_node.base()));
+								// (rModelPart.Nodes()).push_back(*(i_node.base()));
+								rModelPart.AddNode(*(i_node.base()));
 							}
 						}
 						else
 						{
-							(rModelPart.Nodes()).push_back(*(i_node.base()));
+							// (rModelPart.Nodes()).push_back(*(i_node.base()));
+							rModelPart.AddNode(*(i_node.base()));
 						}
 					}
 					else
 					{
-						(rModelPart.Nodes()).push_back(*(i_node.base()));
+						// (rModelPart.Nodes()).push_back(*(i_node.base()));
+						rModelPart.AddNode(*(i_node.base()));
 					}
 
 					/////////////////////////////////////////// here for BOUNDING BOX ///////////////////////////////////////////

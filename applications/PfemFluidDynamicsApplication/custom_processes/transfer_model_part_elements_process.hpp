@@ -77,11 +77,15 @@ public:
       ModelPart::ElementsContainerType::iterator el_begin = mrGuestModelPart.ElementsBegin();
 
       //#pragma omp parallel for  //some nodes are not added in parallel
-      for (int i = 0; i < nel; i++)
-      {
-        ModelPart::ElementsContainerType::iterator el = el_begin + i;
+      // for (int i = 0; i < nel; i++)
+      // {
+      //   ModelPart::ElementsContainerType::iterator el = el_begin + i;
 
-        mrHostModelPart.Elements().push_back(*(el.base()));
+      //   mrHostModelPart.Elements().push_back(*(el.base()));
+      // }
+
+      for(auto & elem : mrGuestModelPart.Elements().GetContainer()) {
+          mrHostModelPart.AddElement(elem);
       }
     }
 

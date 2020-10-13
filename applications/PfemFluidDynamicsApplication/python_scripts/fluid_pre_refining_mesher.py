@@ -106,9 +106,9 @@ class PreRefiningMesher(fluid_mesher.FluidMesher):
         remove_mesh_nodes = KratosPfemFluid.RemoveMeshNodesForFluids(self.model_part, self.MeshingParameters, self.echo_level)
         self.mesher.SetPreMeshingProcess(remove_mesh_nodes)
 
-        if( refining_options.Is(KratosDelaunay.MesherUtilities.REFINE_INSERT_NODES) ):
-            generate_new_nodes  = KratosPfemFluid.GenerateNewNodesBeforeMeshing(self.model_part, self.MeshingParameters, self.echo_level)
-            self.mesher.SetPreMeshingProcess(generate_new_nodes)
+        # if( refining_options.Is(KratosDelaunay.MesherUtilities.REFINE_INSERT_NODES) ):
+        #     generate_new_nodes  = KratosPfemFluid.GenerateNewNodesBeforeMeshing(self.model_part, self.MeshingParameters, self.echo_level)
+        #     self.mesher.SetPreMeshingProcess(generate_new_nodes)
 
 
     #

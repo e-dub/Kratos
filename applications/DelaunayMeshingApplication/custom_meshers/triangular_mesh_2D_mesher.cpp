@@ -34,6 +34,9 @@ namespace Kratos
 
     //*********************************************************************
 
+    std::cout << "Printing before generate preprocess" << std::endl;
+    KRATOS_WATCH(rModelPart)
+
     ////////////////////////////////////////////////////////////
     this->ExecutePreMeshingProcesses();
     ////////////////////////////////////////////////////////////
@@ -44,6 +47,9 @@ namespace Kratos
     struct triangulateio in;
     struct triangulateio out;
     ClearTrianglesList(out);
+
+    std::cout << "Printing before generate mesh" << std::endl;
+    KRATOS_WATCH(rModelPart)
 
     BuildInput(rModelPart,rMeshingVariables,in);
 

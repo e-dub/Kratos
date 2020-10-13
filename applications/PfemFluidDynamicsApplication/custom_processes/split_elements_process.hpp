@@ -397,7 +397,8 @@ public:
         this->AddUniquePointer<Node<3>>(rN, i_elem->GetGeometry()(spn));
       }
 
-      i_mp->Nodes().push_back(newNode);
+      // i_mp->Nodes().push_back(newNode);
+      i_mp->AddNode(newNode);
       addedNode = true;
       // std::cout<<"    NEW NODE "<<rNodeId<<")"<<rPoint[0]<<" "<<rPoint[1]<<" "<<rPoint[2]<<std::endl;
     }
@@ -423,7 +424,8 @@ public:
     {
       if (i_node->IsNot(TO_ERASE))
       {
-        (mrModelPart.Nodes()).push_back(*(i_node.base()));
+        // (mrModelPart.Nodes()).push_back(*(i_node.base()));
+        mrModelPart.AddNode(*(i_node.base()));
       }
     }
     mrModelPart.Nodes().Sort();

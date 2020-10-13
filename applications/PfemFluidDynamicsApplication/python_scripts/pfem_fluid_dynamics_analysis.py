@@ -113,6 +113,7 @@ class PfemFluidDynamicsAnalysis(AnalysisStage):
             process_parameters.AddValue("problem_process_list", self.project_parameters["problem_process_list"])
 
         self.model_processes = ProcessHandler(self.model, process_parameters)
+        self.model_processes.guarrada = self.main_model_part
         self.model_processes.ExecuteInitialize()
 
         ## here we initialize user-provided processes
@@ -150,6 +151,8 @@ class PfemFluidDynamicsAnalysis(AnalysisStage):
         # write output results GiD: (frequency writing is controlled internally)
         self.GraphicalOutputPrintOutput()
 
+        print("GLOBAL INITIALIZE")
+
         # Set time settings
         self.step = self.main_model_part.ProcessInfo[KratosMultiphysics.STEP]
         self.time = self.main_model_part.ProcessInfo[KratosMultiphysics.TIME]
@@ -162,9 +165,13 @@ class PfemFluidDynamicsAnalysis(AnalysisStage):
         """This function performs all the required operations that should be executed
         (for each step) BEFORE solving the solution step.
         """
+        print("INITIALIZE TIME STRP")
         self.clock_time = self.StartTimeMeasuring()
         # processes to be executed at the begining of the solution step
+        print(self.main_model_part)
+        print("B ------------------>", self.model_processes)
         self.model_processes.ExecuteInitializeSolutionStep()
+        print("A ------------------>", self.model_processes)
 
         for process in self._GetListOfProcesses():
             process.ExecuteInitializeSolutionStep()

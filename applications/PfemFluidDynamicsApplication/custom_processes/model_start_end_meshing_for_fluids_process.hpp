@@ -191,8 +191,9 @@ protected:
           {
             if (i_node->IsNot(TO_ERASE))
             {
-              (i_mp->Nodes()).push_back(*(i_node.base()));
-              (rModelPart.Nodes()).push_back(*(i_node.base()));
+              // (i_mp->Nodes()).push_back(*(i_node.base()));
+              i_mp->AddNode(*(i_node.base()));
+              // (rModelPart.Nodes()).push_back(*(i_node.base()));
               rModelPart.Nodes().back().SetId(nodeId);
               nodeId += 1;
             }
@@ -216,8 +217,8 @@ protected:
                 }
               }
                i_elem->SetId(elemId);
-              (rModelPart.Elements()).push_back(*(i_elem.base()));
-              rModelPart.Elements().back().SetId(elemId);
+              // (rModelPart.Elements()).push_back(*(i_elem.base()));
+              rModelPart.AddElement(*(i_elem.base()));
               elemId += 1;
             }
           }
@@ -247,8 +248,9 @@ protected:
               if (i_node->IsNot(TO_ERASE))
               {
 
-                (i_mp->Nodes()).push_back(*(i_node.base()));
-                (rModelPart.Nodes()).push_back(*(i_node.base()));
+                // (i_mp->Nodes()).push_back(*(i_node.base()));
+                i_mp->AddNode(*(i_node.base()));
+                // (rModelPart.Nodes()).push_back(*(i_node.base()));
                 rModelPart.Nodes().back().SetId(nodeId);
                 nodeId += 1;
               }
@@ -265,8 +267,9 @@ protected:
               if (mOptions.Is(MesherUtilities::KEEP_ISOLATED_NODES) && i_node->IsNot(TO_ERASE))
               {
                 i_node->FastGetSolutionStepValue(PRESSURE) = 0;
-                (i_mp->Nodes()).push_back(*(i_node.base()));
-                (rModelPart.Nodes()).push_back(*(i_node.base()));
+                // (i_mp->Nodes()).push_back(*(i_node.base()));
+                i_mp->AddNode(*(i_node.base()));
+                // (rModelPart.Nodes()).push_back(*(i_node.base()));
                 rModelPart.Nodes().back().SetId(nodeId);
                 nodeId += 1;
               }
@@ -321,8 +324,8 @@ protected:
                     // Adding the remaining elements to the Main Mode Part
                     for (ModelPart::ElementsContainerType::iterator i_elem = i_mp->ElementsBegin(); i_elem != i_mp->ElementsEnd(); i_elem++) {
                         i_elem->SetId(elemId);
-                        (rModelPart.Elements()).push_back(*(i_elem.base()));
-                        rModelPart.Elements().back().SetId(elemId);
+                        // (rModelPart.Elements()).push_back(*(i_elem.base()));
+                        rModelPart.AddElement(*(i_elem.base()));
                         elemId += 1;
                     }
                 }
@@ -414,8 +417,8 @@ protected:
 
         for (ModelPart::NodesContainerType::iterator i_node = i_mp->NodesBegin(); i_node != i_mp->NodesEnd(); i_node++)
         {
-          rComputingModelPart.Nodes().push_back(*(i_node.base()));
-          // rComputingModelPart.AddNode(*(i_node.base())); // very slow!
+          //rComputingModelPart.Nodes().push_back(*(i_node.base()));
+          rComputingModelPart.AddNode(*(i_node.base())); // very slow!
         }
 
         // for(ModelPart::ConditionsContainerType::iterator i_cond = i_mp->ConditionsBegin() ; i_cond != i_mp->ConditionsEnd() ; i_cond++)

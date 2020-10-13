@@ -59,7 +59,12 @@ class ProcessHandler(KratosMultiphysics.Process):
     #
     def ExecuteInitializeSolutionStep(self):
         for process in self.list_of_processes:
+            print(process)
+            print("before executing process")
+            print(self.model.GetModelPart("PfemFluidModelPart.Fluid"))
             process.ExecuteInitializeSolutionStep()
+            print("after executing process")
+            print(self.guarrada)
 
     #
     def ExecuteFinalizeSolutionStep(self):

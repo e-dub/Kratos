@@ -103,6 +103,8 @@ class FluidMeshingDomain(object):
         full_module_name = python_module_name + "." + self.settings["meshing_strategy"]["python_module"].GetString()
         meshing_module = import_module(full_module_name)
         #meshing_module = __import__(self.settings["meshing_strategy"]["python_module"].GetString())
+        print("Meshing strategy mdpa")
+        print(self.main_model_part)
         self.MeshingStrategy = meshing_module.CreateMeshingStrategy(self.main_model_part, self.settings["meshing_strategy"])
 
         self.active_remeshing = False

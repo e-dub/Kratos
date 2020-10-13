@@ -32,8 +32,25 @@ public:
     void RebuildPostProcessModelPart(ModelPart &r_post_model_part, ModelPart &r_main_model_part) {
 
         // Cleaning the Output Model Part
-        r_post_model_part.Elements().clear();
-        r_post_model_part.Nodes().clear();
+
+        // r_post_model_part.Elements().clear();
+        // r_post_model_part.Nodes().clear();
+
+        VariableUtils().SetFlag(TO_ERASE, true, r_post_model_part.Nodes());
+        VariableUtils().SetFlag(TO_ERASE, true, r_post_model_part.Elements());
+
+        // for(auto & node : r_post_model_part.Nodes()) {
+        //     node.GetValue(NEIGHBOUR_ELEMENTS).resize(0);
+        // }
+
+        r_post_model_part.RemoveNodesFromAllLevels(TO_ERASE);
+        r_post_model_part.RemoveElementsFromAllLevels(TO_ERASE);
+
+        VariableUtils().SetFlag(TO_ERASE, false, r_main_model_part.Nodes());
+        VariableUtils().SetFlag(TO_ERASE, false, r_main_model_part.Elements());
+
+        std::cout << "POST PROCESS MODEL PART" << std::endl;
+        KRATOS_WATCH(r_main_model_part)
 
         // Adding nodes
         for (size_t i = 0; i < r_main_model_part.NumberOfNodes(); i++) {

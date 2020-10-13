@@ -86,6 +86,11 @@ class UpdateThermalModelPartProcess : public Process {
         rOriginModelPart.RemoveNodesFromAllLevels(TO_ERASE);
         VariableUtils().SetFlag(TO_ERASE, true, rDestinationModelPart.Nodes());
         VariableUtils().SetFlag(TO_ERASE, true, rDestinationModelPart.Elements());
+
+        for(auto & node : rDestinationModelPart.Nodes()) {
+            node.GetValue(NEIGHBOUR_ELEMENTS).resize(0);
+        }
+
         rDestinationModelPart.RemoveNodesFromAllLevels(TO_ERASE);
         rDestinationModelPart.RemoveElementsFromAllLevels(TO_ERASE);
         VariableUtils().SetFlag(TO_ERASE, false, rOriginModelPart.Nodes());
