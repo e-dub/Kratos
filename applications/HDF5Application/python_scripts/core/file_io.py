@@ -8,6 +8,7 @@ import os
 
 
 import KratosMultiphysics
+import KratosMultiphysics.kratos_utilities as kratos_utils
 import KratosMultiphysics.HDF5Application as KratosHDF5
 from .utils import ParametersWrapper
 
@@ -86,6 +87,17 @@ class _FilenameGetter(object):
             self.time_format = settings['time_format']
         else:
             self.time_format = ''
+            
+        self.list_of_file_names = None
+        if ('max_files_to_keep' in settings.keys()):
+            max_number_of_files_to_keep = settings['max_files_to_keep']
+            if (max_number_of_files_to_keep == "unlimited"):
+                self.list_of_file_names = None
+            else:
+                max_number_of_files_to_keep = int(max_number_of_files_to_keep)
+                if (max_number_of_files_to_keep <= 0):
+                    raise Exception("max_files_to_keep to keep should be greater than 0")
+                self.list_of_file_names = [""] * max_number_of_files_to_keep         
 
     def Get(self, model_part=None):
         if hasattr(model_part, 'ProcessInfo'):
@@ -97,6 +109,15 @@ class _FilenameGetter(object):
             filename = filename.replace('<model_part_name>', model_part.Name)
         if not filename.endswith('.h5'):
             filename += '.h5'
+            
+        if (not self.list_of_file_names is None):
+            try:
+                pos = self.list_of_file_names.index("")
+                self.list_of_file_names[pos] = filename
+            except ValueError:
+                kratos_utils.DeleteFileIfExisting(self.list_of_file_names.pop(0))
+                self.list_of_file_names.append(filename)           
+            
         return filename
 
 
